@@ -1,0 +1,6 @@
+docker run \
+  -p 8081:8080 \
+  -e KAFKA_CLUSTERS_0_NAME=geolocation_cluster \
+  -e KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=192.168.29.90:29092,192.168.29.90:39092 \
+  -e KAFKA_CLUSTERS_0_ZOOKEEPER=192.168.29.90:22181 \
+  provectuslabs/kafka-ui:latest
