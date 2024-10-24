@@ -1,0 +1,10 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: LocationCollection
+  kafka:
+    bootstrap-server: localhost:29092,localhost:39092
+    group-id: poc-location-collector
+    incoming-topic: poc-location-data-collection
+    outgoing-topic: poc-live-location-data

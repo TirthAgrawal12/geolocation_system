@@ -23,6 +23,8 @@
     <modules>
         <module>GpsModule</module>
         <module>LocationCollection</module>
+        <module>LiveLocationModule</module>
+        <module>ExternalDeviceModule</module>
     </modules>
 
 </project>
