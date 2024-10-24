@@ -4,4 +4,10 @@ server:
 spring:
   application:
     name: GpsModule
-
+  kafka:
+    center:
+      latitude: 2
+      longitude: 4
+      radius: 2
+      x: 9
+      y: 9

@@ -1,4 +1,4 @@
-package com.example.LocationCollection.model;
+package com.example.LocationCollection.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StreamRequest {
+@Builder
+public class ProcessedLocationData {
+
     private String id;
     private double latitude;
     private double longitude;

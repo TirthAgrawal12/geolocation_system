@@ -1,0 +1,10 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: ExternalDeviceModule
+  kafka:
+    bootstrap-server: localhost:29092,localhost:39092
+    group-id: poc-live-location-collector-part1
+    incoming-topic: poc-update-external-device

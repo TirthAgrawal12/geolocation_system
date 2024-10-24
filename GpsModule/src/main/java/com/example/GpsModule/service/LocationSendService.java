@@ -2,6 +2,7 @@ package com.example.GpsModule.service;
 
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -22,7 +23,24 @@ public class LocationSendService {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     public static final String TOPIC = "poc-location-data-collection";
     private final KafkaTemplate<String, String> kafkaTemplate;
-    AtomicInteger counter = new AtomicInteger();
+
+    @Value(value = "${spring.kafka.center.latitude}")
+    private int centerLatitude;
+    @Value(value = "${spring.kafka.center.longitude}")
+    private int centerLongitude;
+    @Value(value = "${spring.kafka.center.radius}")
+    private int radius;
+    @Value(value = "${spring.kafka.center.x}")
+    private int x;
+    @Value(value = "${spring.kafka.center.y}")
+    private int y;
+    @Value(value = "${spring.kafka.carid}")
+    private int carid;
+
+    @Value(value = "${spring.kafka.latitude}")
+    private List<Integer> latitude;
+    @Value(value = "${spring.kafka.longitude}")
+    private List<Integer> longitude;
 
 
     @Bean
@@ -30,19 +48,22 @@ public class LocationSendService {
 
         return args -> {
 
-            final List<Integer> latitude = List.of(100, 90, 80, 70);
-            final List<Integer> longitude = List.of(100, 90, 80, 70);
-
             for (int index=0; index < latitude.size(); index++) {
 
                 JSONObject payload = new JSONObject();
                 payload.put("Time",dateFormat.format(new Date()));
                 payload.put("latitude",latitude.get(index));
                 payload.put("longitude",longitude.get(index));
+                payload.put("centerLatitude",centerLatitude);
+                payload.put("centerLongitude",centerLongitude);
+                payload.put("radius",radius);
+                payload.put("x",x);
+                payload.put("y",y);
+                payload.put("id",carid);
 
                 var message = MessageBuilder.withPayload(payload.toJSONString())
                         .setHeader(KafkaHeaders.TOPIC, TOPIC)
-                        .setHeader(KafkaHeaders.KEY, String.valueOf(counter.get()))
+                        .setHeader(KafkaHeaders.KEY, String.valueOf(carid))
                         .setHeader("system", "poc-location-data-collection")
                         .build();
 
